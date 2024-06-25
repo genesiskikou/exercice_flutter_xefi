@@ -25,7 +25,7 @@ class _CardnotedefraisState extends State<Cardnotedefrais> {
   @override
   void initState() {
     super.initState();
-    currentChoice = items[0]; // Initialize currentChoice here
+    currentChoice = items[0];
   }
 
   @override
@@ -41,9 +41,12 @@ class _CardnotedefraisState extends State<Cardnotedefrais> {
                 child: Row(
                   children: [
                     Expanded(
-                      flex: 1,
+                      flex: 2,
                       child: ListTile(
-                        title: Text('DuJardin Jean'),
+                        title: Text(
+                          'DuJardin Jean',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
                         subtitle: Text('Cinéma - Comédien'),
                       ),
                     ),

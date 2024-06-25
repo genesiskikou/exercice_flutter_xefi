@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 // ignore: camel_case_types
-class ButtonModels extends StatelessWidget {
+class ButtonModels extends StatefulWidget {
   ButtonModels(
       {super.key,
       required this.background,
@@ -36,5 +36,11 @@ class ButtonModels extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    throw UnimplementedError();
   }
 }
