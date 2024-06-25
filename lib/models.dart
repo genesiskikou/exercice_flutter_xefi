@@ -2,7 +2,17 @@ import 'package:flutter/material.dart';
 
 // ignore: camel_case_types
 class ButtonModels extends StatelessWidget {
-  const ButtonModels({super.key});
+  ButtonModels(
+      {super.key,
+      required this.background,
+      required this.colorborder,
+      required this.colortexte,
+      required this.texte});
+
+  String texte;
+  Color colorborder;
+  Color background;
+  Color colortexte;
 
   @override
   Widget build(BuildContext context) {
@@ -10,46 +20,18 @@ class ButtonModels extends StatelessWidget {
       padding: const EdgeInsets.all(16.0),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.white,
+          backgroundColor: background,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
-          side: const BorderSide(color: Colors.black),
+          side: BorderSide(color: colorborder),
           padding: const EdgeInsets.all(2),
         ),
         onPressed: () {},
         child: Text(
-          "+ de détails".toUpperCase(),
+          texte.toUpperCase(),
           style: TextStyle(
-            color: Colors.black,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-// ignore: camel_case_types
-class ButtonModelsEnregistrer extends StatelessWidget {
-  const ButtonModelsEnregistrer({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.orange,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          padding: const EdgeInsets.all(2),
-        ),
-        onPressed: () {},
-        child: Text(
-          "Enregistrer".toUpperCase(),
-          style: TextStyle(
-            color: Colors.white,
+            color: colortexte,
           ),
         ),
       ),

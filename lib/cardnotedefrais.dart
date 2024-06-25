@@ -49,26 +49,34 @@ class _CardnotedefraisState extends State<Cardnotedefrais> {
                     ),
                     Expanded(
                       flex: 1,
-                      child: DropdownButton<ColorItem>(
-                        isExpanded: true,
-                        value: currentChoice,
-                        items: items.map((ColorItem item) {
-                          return DropdownMenuItem<ColorItem>(
-                            value: item,
-                            child: Center(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: currentChoice.color,
+                          borderRadius: BorderRadius.circular(5.0),
+                        ),
+                        child: DropdownButton<ColorItem>(
+                          isExpanded: true,
+                          value: currentChoice,
+                          dropdownColor: currentChoice.color,
+                          items: items.map((ColorItem item) {
+                            return DropdownMenuItem<ColorItem>(
+                              value: item,
+                              child: Center(
                                 child: Text(
-                              item.name,
-                              style: TextStyle(
-                                color: item.color,
+                                  item.name,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
                               ),
-                            )),
-                          );
-                        }).toList(),
-                        onChanged: (ColorItem? value) {
-                          setState(() {
-                            currentChoice = value!;
-                          });
-                        },
+                            );
+                          }).toList(),
+                          onChanged: (ColorItem? value) {
+                            setState(() {
+                              currentChoice = value!;
+                            });
+                          },
+                        ),
                       ),
                     )
                   ],
@@ -77,8 +85,22 @@ class _CardnotedefraisState extends State<Cardnotedefrais> {
               Expanded(
                   flex: 1,
                   child: Row(children: [
-                    Expanded(flex: 1, child: ButtonModels()),
-                    Expanded(flex: 1, child: ButtonModelsEnregistrer()),
+                    Expanded(
+                        flex: 1,
+                        child: ButtonModels(
+                          background: Colors.orange,
+                          texte: "enregistrer",
+                          colortexte: Colors.white,
+                          colorborder: Colors.transparent,
+                        )),
+                    Expanded(
+                        flex: 1,
+                        child: ButtonModels(
+                          background: Colors.white,
+                          texte: "+ de détails",
+                          colortexte: Colors.grey,
+                          colorborder: Colors.black,
+                        )),
                   ])),
             ],
           ),
