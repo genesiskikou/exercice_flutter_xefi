@@ -1,11 +1,16 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 import 'dart:io';
 
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:exercice_flutter_1/models.dart';
+import 'package:exercice_flutter_1/cocktail%20project/recette.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
+
+import 'package:exercice_flutter_1/models.dart';
+import 'package:path_provider/path_provider.dart';
 
 class Coktailcreat extends StatefulWidget {
   const Coktailcreat({super.key});
@@ -49,10 +54,31 @@ class _UploadLocalImageFormState extends State<UploadLocalImageForm> {
   final myControllername = TextEditingController();
   final myControllerurl = TextEditingController();
   final myControllerrecette = TextEditingController();
+  late List<Recette> allrecette;
+
+  // late Future<BoxCollection> collection = BoxCollection.open(
+  //   'boxrecette',
+  //   {'recette'},
+  //   path: Directory.current.path,
+  // );
+
+  Future<void> addRecette() async {
+    var box = await Hive.openBox('boxrecette');
+
+    var recette = Recette(
+        name: myControllername.text,
+        recette: myControllerrecette.text,
+        url: myControllerurl.text);
+
+    box.add(recette);
+    // ignore: avoid_print
+    print(box.getAt(0));
+  }
 
   var snackBar = SnackBar(
     content: Text("votre url n'est peut etre pas bonne"),
   );
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -124,8 +150,11 @@ class _UploadLocalImageFormState extends State<UploadLocalImageForm> {
               Expanded(
                 child: Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child:
-                        ElevatedButton(onPressed: () {}, child: Text('Créer'))),
+                    child: ElevatedButton(
+                        onPressed: () {
+                          addRecette();
+                        },
+                        child: Text('Créer'))),
               ),
             ],
           )
