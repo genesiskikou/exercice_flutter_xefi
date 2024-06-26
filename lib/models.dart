@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
 // ignore: camel_case_types
@@ -35,6 +36,137 @@ class ButtonModels extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class CustomBottomAppBar extends StatelessWidget {
+  final Function()? onMenuPressed;
+  final Function()? onSearchPressed;
+  final Function()? onaddPressed;
+
+  const CustomBottomAppBar({
+    Key? key,
+    this.onMenuPressed,
+    this.onSearchPressed,
+    this.onaddPressed,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BottomAppBar(
+      shape: const CircularNotchedRectangle(),
+      notchMargin: 6.0,
+      color: Colors.grey,
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.menu),
+            onPressed: onMenuPressed,
+          ),
+          IconButton(
+            icon: const Icon(Icons.search),
+            onPressed: onSearchPressed,
+          ),
+          IconButton(
+            icon: const Icon(Icons.add),
+            onPressed: onaddPressed,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class CustomDrawer extends StatelessWidget {
+  final Function()? onMenuPressed;
+  final Function()? onSearchPressed;
+  final Function()? onaddPressed;
+
+  const CustomDrawer({
+    Key? key,
+    this.onMenuPressed,
+    this.onSearchPressed,
+    this.onaddPressed,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          const DrawerHeader(
+            decoration: BoxDecoration(
+              color: Color.fromARGB(255, 253, 253, 253),
+            ),
+            child: Text('Drawer Header'),
+          ),
+          ListTile(
+            title: const Text('Home'),
+            onTap: () {},
+          ),
+          ListTile(
+            title: const Text('My Create Cocktails'),
+            onTap: () {},
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class listAvatarbar extends StatelessWidget {
+  final String lien;
+  const listAvatarbar({
+    super.key,
+    required this.lien,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: <Widget>[
+        Expanded(
+          flex: 1,
+          child: ListTile(
+            leading: CircleAvatar(
+              radius: 50,
+              backgroundColor: Colors.blue,
+              child: ClipOval(
+                  child: Image.network(
+                "$lien",
+                fit: BoxFit.cover,
+                width: 90.0,
+                height: 100.0,
+              )),
+            ),
+          ),
+        ),
+        Expanded(
+          flex: 2,
+          child: Container(
+            padding: EdgeInsets.all(10),
+            child: ListTile(
+              title: Text(
+                'Martini',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              subtitle: Text(
+                'Recette avec alcool ',
+                style: TextStyle(
+                  color: Colors.black,
+                ),
+              ),
+            ),
+          ),
+        )
+      ],
     );
   }
 }
