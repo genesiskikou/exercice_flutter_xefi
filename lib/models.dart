@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:exercice_flutter_1/cocktail%20project/coktailcreat.dart';
 import 'package:flutter/material.dart';
 
 // ignore: camel_case_types
@@ -110,7 +111,12 @@ class CustomDrawer extends StatelessWidget {
           ),
           ListTile(
             title: const Text('My Create Cocktails'),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const Coktailcreat()),
+              );
+            },
           ),
         ],
       ),
@@ -133,14 +139,14 @@ class listAvatarbar extends StatelessWidget {
           flex: 1,
           child: ListTile(
             leading: CircleAvatar(
-              radius: 50,
+              radius: 20,
               backgroundColor: Colors.blue,
               child: ClipOval(
                   child: Image.network(
                 "$lien",
                 fit: BoxFit.cover,
                 width: 90.0,
-                height: 100.0,
+                height: 90.0,
               )),
             ),
           ),
