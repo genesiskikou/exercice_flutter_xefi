@@ -1,55 +1,51 @@
-import 'dart:io';
-
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:exercice_flutter_1/models.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:exercice_flutter_1/cocktail project/coktailcreat.dart';
+import 'package:hive/hive.dart';
+import 'package:exercice_flutter_1/cocktail%20project/recette.dart';
 
-class Listcreatecocktail extends StatefulWidget {
-  const Listcreatecocktail({super.key});
+class ListCreateCocktail extends StatelessWidget {
+  Future<Box<Recette>> openBox() async {
+    return await Hive.openBox<Recette>('boxrecette');
+  }
 
-  @override
-  _ListcreatecocktailState createState() => _ListcreatecocktailState();
-}
-
-class _ListcreatecocktailState extends State<Listcreatecocktail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 253, 253, 253),
       appBar: AppBar(
-        title: const Text('My Createcocktails'),
+        title: Text('Liste des cocktails créés'),
       ),
-      drawer: CustomDrawer(),
-      body: SingleChildScrollView(),
-      bottomNavigationBar: const CustomBottomAppBar(),
-    );
-  }
-}
-
-class affichelist extends StatefulWidget {
-  const affichelist({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<affichelist> createState() => _affichelistState();
-}
-
-class _affichelistState extends State<affichelist> {
-  get lien => null;
-
-  @override
-  Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(15.0),
-      child: Image.network(
-        '$lien',
-        height: 300,
-        width: 275,
-        fit: BoxFit.cover,
+      body: FutureBuilder<Box<Recette>>(
+        future: openBox(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else {
+            var box = snapshot.data!;
+            return ListView.builder(
+              itemCount: box.length,
+              itemBuilder: (context, index) {
+                final recette = box.getAt(index) as Recette;
+                return Padding(padding: const EdgeInsets.all(16.0), child: ListTile(
+                  
+                  trailing: CircleAvatar(
+              radius: 20,
+              backgroundColor: Colors.blue,
+              child: ClipOval(
+                  child: Image.network(
+                recette.url,
+                fit: BoxFit.cover,
+                width: 90.0,
+                height: 90.0,
+              )),
+            ),
+                  title: Text(recette.name),
+                ),) ;
+              },
+            );
+          }
+        },
       ),
     );
   }

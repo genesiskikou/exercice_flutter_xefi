@@ -1,5 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:exercice_flutter_1/cocktail%20project/coktailcreat.dart';
+import 'package:exercice_flutter_1/cocktail%20project/homecocktail.dart';
+import 'package:exercice_flutter_1/cocktail%20project/listcreatecocktail.dart';
 import 'package:flutter/material.dart';
 
 // ignore: camel_case_types
@@ -107,14 +109,26 @@ class CustomDrawer extends StatelessWidget {
           ),
           ListTile(
             title: const Text('Home'),
-            onTap: () {},
+            onTap: () {Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const HomepageCocktail()),
+              );},
           ),
           ListTile(
-            title: const Text('My Create Cocktails'),
+            title: const Text('create cocktail'),
             onTap: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const Coktailcreat()),
+              );
+            },
+          ),
+           ListTile(
+            title: const Text('My Create Cocktails'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ListCreateCocktail()),
               );
             },
           ),

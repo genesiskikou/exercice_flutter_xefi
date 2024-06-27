@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 import 'dart:io';
 
@@ -50,17 +49,10 @@ class UploadLocalImageForm extends StatefulWidget {
 class _UploadLocalImageFormState extends State<UploadLocalImageForm> {
   String lien =
       'https://www.liquor.com/thmb/sUKZSwJj7slc5l-LDyK8eajT0LY=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/very-sexy-martini-720x720-primary-b1212ebf73f54f898a56f7f0b60c0a34.jpg';
-  final _formKey = GlobalKey<FormState>();
-  final myControllername = TextEditingController();
-  final myControllerurl = TextEditingController();
-  final myControllerrecette = TextEditingController();
+  final myControllername = TextEditingController(text: 'Nom du cocktail');
+  final myControllerurl = TextEditingController(text: 'https://www.liquor.com/thmb/sUKZSwJj7slc5l-LDyK8eajT0LY=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/very-sexy-martini-720x720-primary-b1212ebf73f54f898a56f7f0b60c0a34.jpg');
+  final myControllerrecette = TextEditingController(text: "Réalisez la recette 'Apple fizz' au shaker. \nFrapper et servir frais.\nServir dans un verre de type 'tumbler'.\nDécorer d'un zeste de citron.");
   late List<Recette> allrecette;
-
-  // late Future<BoxCollection> collection = BoxCollection.open(
-  //   'boxrecette',
-  //   {'recette'},
-  //   path: Directory.current.path,
-  // );
 
   Future<void> addRecette() async {
     var box = await Hive.openBox('boxrecette');
@@ -71,8 +63,28 @@ class _UploadLocalImageFormState extends State<UploadLocalImageForm> {
         url: myControllerurl.text);
 
     box.add(recette);
-    // ignore: avoid_print
     print(box.getAt(0));
+  }
+
+  Future<void> Touterecette() async {
+    var box = await Hive.openBox('boxrecette');
+    var recettes = box.values.toList();
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('All Recettes'),
+        content: SingleChildScrollView(
+          child: Column(
+            children: recettes.map((recette) {
+              return ListTile(
+                title: Text(recette.name),
+                subtitle: Text(recette.recette),
+              );
+            }).toList(),
+          ),
+        ),
+      ),
+    );
   }
 
   var snackBar = SnackBar(
@@ -82,7 +94,6 @@ class _UploadLocalImageFormState extends State<UploadLocalImageForm> {
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: _formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -157,7 +168,16 @@ class _UploadLocalImageFormState extends State<UploadLocalImageForm> {
                         child: Text('Créer'))),
               ),
             ],
-          )
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: ElevatedButton(
+              onPressed: () {
+                Touterecette();
+              },
+              child: Text('Afficher toutes les recettes'),
+            ),
+          ),
         ],
       ),
     );
