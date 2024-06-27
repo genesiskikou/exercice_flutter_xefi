@@ -138,55 +138,57 @@ class CustomDrawer extends StatelessWidget {
   }
 }
 
-class listAvatarbar extends StatelessWidget {
-  final String lien;
-  const listAvatarbar({
-    super.key,
-    required this.lien,
-  });
+
+
+class CardExample extends StatelessWidget {
+  final String name;
+  final String imageUrl;
+
+  const CardExample({
+    Key? key,
+    required this.name,
+    required this.imageUrl,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        Expanded(
-          flex: 1,
-          child: ListTile(
-            leading: CircleAvatar(
-              radius: 20,
-              backgroundColor: Colors.blue,
-              child: ClipOval(
+    return Center(
+      child: Column(
+        children: [
+          Card(
+            clipBehavior: Clip.hardEdge,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15.0),
+            ),
+            elevation: 5,
+            child: Stack(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(15.0),
                   child: Image.network(
-                "$lien",
-                fit: BoxFit.cover,
-                width: 90.0,
-                height: 90.0,
-              )),
+                    imageUrl,
+                    height: 300,
+                    width: 275,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                Positioned(
+                  top: 10,
+                  left: 10,
+                  child: Text(
+                    name,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
-        ),
-        Expanded(
-          flex: 2,
-          child: Container(
-            padding: EdgeInsets.all(10),
-            child: ListTile(
-              title: Text(
-                'Martini',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              subtitle: Text(
-                'Recette avec alcool ',
-                style: TextStyle(
-                  color: Colors.black,
-                ),
-              ),
-            ),
-          ),
-        )
-      ],
+        ],
+      ),
     );
   }
 }
