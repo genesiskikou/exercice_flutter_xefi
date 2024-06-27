@@ -3,6 +3,9 @@ import 'package:exercice_flutter_1/cocktail%20project/coktailcreat.dart';
 import 'package:exercice_flutter_1/cocktail%20project/homecocktail.dart';
 import 'package:exercice_flutter_1/cocktail%20project/listcreatecocktail.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+
+
 
 // ignore: camel_case_types
 class ButtonModels extends StatelessWidget {
@@ -182,6 +185,79 @@ class CardExample extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
                     ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
+
+class ListAvatarbar extends StatelessWidget {
+  final String lien;
+  final String title;
+  final double rating;
+  final String address;
+
+  const ListAvatarbar({
+    super.key,
+    required this.lien,
+    required this.title,
+    required this.rating,
+    required this.address,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        children: <Widget>[
+          CircleAvatar(
+            radius: 40,
+            backgroundColor: Colors.blue,
+            child: ClipOval(
+              child: Image.network(
+                lien,
+                fit: BoxFit.cover,
+                width: 80,
+                height: 80,
+              ),
+            ),
+          ),
+          SizedBox(width: 16), // Add some space between the image and the text
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+                RatingBarIndicator(
+                  rating: rating,
+                  itemBuilder: (context, index) => Icon(
+                    Icons.star,
+                    color: Colors.amber,
+                  ),
+                  itemCount: 5,
+                  itemSize: 20.0,
+                  direction: Axis.horizontal,
+                ),
+                Text(
+                  address,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 14,
                   ),
                 ),
               ],

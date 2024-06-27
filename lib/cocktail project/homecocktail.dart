@@ -125,7 +125,8 @@ class _HomepageCocktailState extends State<HomepageCocktail> {
                       return ListAvatarbar(
                         lien: bar.photoUrl,
                         title: bar.name,
-                        subtitle: bar.address,
+                        rating: bar.rating,
+                        address: bar.address,
                       );
                     }).toList(),
                   );
@@ -184,65 +185,6 @@ class CardExample extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
                     ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class ListAvatarbar extends StatelessWidget {
-  final String lien;
-  final String title;
-  final String subtitle;
-
-  const ListAvatarbar({
-    super.key,
-    required this.lien,
-    required this.title,
-    required this.subtitle,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        children: <Widget>[
-          CircleAvatar(
-            radius: 40,
-            backgroundColor: Colors.blue,
-            child: ClipOval(
-              child: Image.network(
-                lien,
-                fit: BoxFit.cover,
-                width: 80,
-                height: 80,
-              ),
-            ),
-          ),
-          SizedBox(width: 16), // Add some space between the image and the text
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-                ),
-                Text(
-                  subtitle,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 14,
                   ),
                 ),
               ],
